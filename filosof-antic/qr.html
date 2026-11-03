@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cod QR pentru acces</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" data-i18n="brand">Agora</a>
+    <div class="header-right">
+      <a class="nav-link" href="./" data-i18n="qrBack">Înapoi la test</a>
+      <div class="lang" role="group" aria-label="Limba / Language">
+        <button data-lang="ro" aria-pressed="true">RO</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page qr-page">
+    <h1 data-i18n="qrTitle">Cod QR pentru acces</h1>
+    <p class="lead" data-i18n="qrIntro"></p>
+
+    <div class="field">
+      <label for="url" data-i18n="qrLabel">Linkul site-ului</label>
+      <input id="url" type="url" inputmode="url" autocomplete="off" spellcheck="false">
+    </div>
+    <p id="qr-warning" class="warning" hidden data-i18n="qrLocal"></p>
+    <p id="qr-error" class="warning" hidden data-i18n="qrNoLib"></p>
+
+    <div class="qr-card">
+      <div class="meander" aria-hidden="true"></div>
+      <p class="qr-title" data-i18n="title">Ce filosof antic ești?</p>
+      <div id="qrcode" class="qr-code"></div>
+      <p class="qr-scan" data-i18n="qrScan"></p>
+      <p class="qr-url" id="qr-url"></p>
+      <div class="meander" aria-hidden="true"></div>
+    </div>
+
+    <div class="actions center">
+      <button class="btn primary" id="download" data-i18n="qrDownload">Descarcă imaginea</button>
+      <button class="btn" id="print" data-i18n="qrPrint">Tipărește</button>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/qr.js"></script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+/* =========================================================
+   Tema: Grecia antică. Marmură rece, albastru egean, aur.
+   Elementul distinctiv: banda cu meandru grecesc.
+   ========================================================= */
+
+:root {
+  --marble: #EDF0F2;
+  --surface: #FBFBFA;
+  --ink: #15253B;
+  --muted: #55657A;
+  --aegean: #1E4D7B;
+  --aegean-soft: rgba(30, 77, 123, 0.08);
+  --gold: #9C7427;
+  --line: rgba(21, 37, 59, 0.16);
+  --on-aegean: #FBFBFA;
+
+  --display: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+  --text: "EB Garamond", Garamond, "Times New Roman", serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --marble: #0C1624;
+    --surface: #122035;
+    --ink: #E8ECF1;
+    --muted: #9DABBD;
+    --aegean: #86B5E0;
+    --aegean-soft: rgba(134, 181, 224, 0.1);
+    --gold: #D2AD5A;
+    --line: rgba(232, 236, 241, 0.14);
+    --on-aegean: #0C1624;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --marble: #0C1624;
+  --surface: #122035;
+  --ink: #E8ECF1;
+  --muted: #9DABBD;
+  --aegean: #86B5E0;
+  --aegean-soft: rgba(134, 181, 224, 0.1);
+  --gold: #D2AD5A;
+  --line: rgba(232, 236, 241, 0.14);
+  --on-aegean: #0C1624;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--marble);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 1.1875rem;
+  line-height: 1.6;
+}
+
+img, svg { max-width: 100%; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- Meandru grecesc ---------- */
+
+.meander {
+  height: 14px;
+  background: var(--gold);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14'%3E%3Cpath d='M0 13H24M2 13V1H18V9H8V5H13' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x left center / 24px 14px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14'%3E%3Cpath d='M0 13H24M2 13V1H18V9H8V5H13' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x left center / 24px 14px;
+}
+
+/* ---------- Antet și subsol ---------- */
+
+.site-header,
+.site-footer {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  background: none;
+  border: 0;
+  padding: 0.25rem 0;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-link:hover { color: var(--ink); }
+
+.lang {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lang button {
+  background: none;
+  border: 0;
+  padding: 0.3rem 0.75rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  cursor: pointer;
+}
+.lang button[aria-pressed="true"] {
+  background: var(--aegean);
+  color: var(--on-aegean);
+}
+
+.site-footer {
+  margin-top: auto;
+  font-size: 0.95rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.site-footer a { color: var(--muted); }
+
+.page {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 4rem;
+  flex: 1;
+}
+
+/* ---------- Butoane ---------- */
+
+.btn {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--aegean);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--aegean);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn:hover { background: var(--aegean-soft); }
+
+.btn.primary {
+  background: var(--aegean);
+  color: var(--on-aegean);
+}
+.btn.primary:hover { filter: brightness(1.08); }
+
+.btn.link {
+  border: 0;
+  padding: 0.5rem 0;
+  background: none;
+  font-family: var(--text);
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 2.5rem 0 2rem;
+}
+.actions.center { justify-content: center; }
+
+/* ---------- Iconițe ---------- */
+
+.icon {
+  display: inline-block;
+  color: var(--gold);
+  line-height: 0;
+}
+.icon svg {
+  width: 48px;
+  height: 48px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon.small svg { width: 32px; height: 32px; }
+.icon.big svg { width: 84px; height: 84px; stroke-width: 1.6; }
+
+/* ---------- Pagina de start ---------- */
+
+.hero {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.3rem, 7.5vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  margin: 2.5rem auto 1.25rem;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 34em;
+  margin: 0 auto 2rem;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+.note {
+  margin: 0.9rem 0 0;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.frieze {
+  list-style: none;
+  padding: 0;
+  margin: 3.5rem 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem 0.5rem;
+}
+.frieze li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.frieze-name {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+/* ---------- Chestionar ---------- */
+
+.quiz { padding-top: 1.5rem; }
+
+.progress {
+  height: 3px;
+  background: var(--line);
+}
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.35s ease;
+}
+
+.counter {
+  margin: 1.25rem 0 0.25rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.question {
+  font-family: var(--text);
+  font-weight: 500;
+  font-size: clamp(1.65rem, 4.6vw, 2.2rem);
+  line-height: 1.25;
+  margin: 0 0 1.75rem;
+  text-wrap: balance;
+}
+.question:focus { outline: none; }
+
+.answers {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.answer {
+  text-align: left;
+  font: inherit;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.95rem 1.15rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+.answer:hover { border-color: var(--gold); }
+.answer.selected {
+  border-color: var(--aegean);
+  background: var(--aegean-soft);
+  box-shadow: inset 4px 0 0 var(--aegean);
+}
+.answer.with-icon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ---------- Rezultat (stela) ---------- */
+
+.stele {
+  margin-top: 1rem;
+  padding: 1.25rem clamp(1.25rem, 5vw, 3.25rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.stele-head {
+  text-align: center;
+  padding: 2.25rem 0 1rem;
+}
+
+.you-are {
+  margin: 1rem 0 0;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--muted);
+}
+
+.stele h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 9vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  margin: 0.1rem 0 0;
+  text-wrap: balance;
+  animation: inscribe 1s ease-out both;
+}
+.stele h1:focus { outline: none; }
+
+@keyframes inscribe {
+  from { opacity: 0; letter-spacing: 0.28em; }
+  to   { opacity: 1; letter-spacing: 0.06em; }
+}
+
+.years {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.tagline {
+  margin: 0.75rem 0 0;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+.desc {
+  font-size: 1.3rem;
+  line-height: 1.55;
+  max-width: 36em;
+  margin: 1.5rem auto 0;
+}
+
+.stele blockquote {
+  margin: 2.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.stele blockquote p {
+  margin: 0;
+  font-style: italic;
+  font-size: clamp(1.4rem, 4vw, 1.75rem);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.stele blockquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-style: normal;
+  font-family: var(--display);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.stele h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--aegean);
+  margin: 2.25rem 0 0.5rem;
+}
+
+.ideas {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.ideas li { margin-bottom: 0.4rem; }
+.ideas li::marker { color: var(--gold); }
+
+.scores {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.scores li {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 11rem) 1fr 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.05rem;
+}
+.score-pct {
+  text-align: right;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.bar {
+  height: 8px;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--aegean);
+  border-radius: 4px;
+}
+.scores li.winner { font-weight: 500; }
+.scores li.winner .bar span { background: var(--gold); }
+
+.also {
+  margin: 1rem 0 0;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* ---------- Galerie ---------- */
+
+.gallery-page { padding-top: 1.5rem; }
+
+.gallery-page > h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin: 1rem 0 0.5rem;
+}
+.gallery-page > h1:focus { outline: none; }
+.gallery-page > .lead { text-align: center; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1rem;
+}
+
+.figure {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  padding: 1.5rem 1.4rem 1.25rem;
+}
+.figure h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  margin: 0.75rem 0 0;
+}
+.figure .tagline { margin-top: 0.4rem; font-size: 0.9rem; }
+.figure-quote {
+  font-style: italic;
+  margin: 0.9rem 0;
+  font-size: 1.1rem;
+}
+.figure .ideas { font-size: 1.02rem; }
+
+/* ---------- Pagina QR ---------- */
+
+.qr-page > h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin: 1.5rem 0 0.75rem;
+}
+.qr-page > .lead { text-align: center; }
+
+.field {
+  max-width: 34em;
+  margin: 0 auto;
+  display: grid;
+  gap: 0.4rem;
+}
+.field label {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+}
+.field input {
+  font: inherit;
+  font-size: 1.05rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.warning {
+  max-width: 34em;
+  margin: 0.75rem auto 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--gold);
+  background: var(--surface);
+  font-size: 1.02rem;
+}
+
+.qr-card {
+  max-width: 420px;
+  margin: 2rem auto 0;
+  padding: 1.25rem 1.5rem;
+  background: #FFFFFF;
+  color: #15253B;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+.qr-card .meander { background: #9C7427; }
+.qr-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  margin: 1.25rem 0 1rem;
+}
+.qr-code {
+  display: flex;
+  justify-content: center;
+}
+.qr-code img,
+.qr-code canvas {
+  width: 100% !important;
+  max-width: 300px;
+  height: auto !important;
+}
+.qr-scan { margin: 1rem 0 0.1rem; font-style: italic; }
+.qr-url {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  word-break: break-all;
+  color: #55657A;
+}
+
+/* ---------- Notificare ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translate(-50%, 1rem);
+  padding: 0.6rem 1.1rem;
+  background: var(--ink);
+  color: var(--marble);
+  border-radius: 3px;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Ecrane mici ---------- */
+
+@media (max-width: 600px) {
+  body { font-size: 1.125rem; }
+  .frieze { grid-template-columns: repeat(3, 1fr); }
+  .scores li { grid-template-columns: 6.5rem 1fr 2.75rem; font-size: 1rem; }
+  .actions .btn:not(.link) { flex: 1 1 100%; }
+  .header-right { gap: 0.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Tipărire (pagina QR) ---------- */
+
+@media print {
+  .site-header, .site-footer, .field, .warning, .actions, .qr-page > .lead, .qr-page > h1 { display: none !important; }
+  body { background: #FFFFFF; }
+  .qr-card { border: 0; margin-top: 3rem; max-width: 520px; }
+  .qr-code img, .qr-code canvas { max-width: 380px; }
+}
