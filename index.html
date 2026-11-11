@@ -2,18 +2,678 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ce filosof antic ești?</title>
+  <script>document.documentElement.className += " js";</script>
+  <style>.js .nojs-msg { display: none; }</style>
   <meta name="description" content="Un test de personalitate: află cu care filosof al Greciei antice semeni cel mai mult.">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMxRTREN0IiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNEMkFENUEiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNMTQgMTRoMzZNMTggMTloMjhNMTggNDZoMjhNMTQgNTFoMzYiLz48cGF0aCBkPSJNMjQgMTl2MjdNMzIgMTl2MjdNNDAgMTl2MjciLz48L2c+PC9zdmc+Cg==" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+/* =========================================================
+   Tema: Grecia antică. Marmură rece, albastru egean, aur.
+   Elementul distinctiv: banda cu meandru grecesc.
+   ========================================================= */
+
+:root {
+  --marble: #EDF0F2;
+  --surface: #FBFBFA;
+  --ink: #15253B;
+  --muted: #55657A;
+  --aegean: #1E4D7B;
+  --aegean-soft: rgba(30, 77, 123, 0.08);
+  --gold: #9C7427;
+  --line: rgba(21, 37, 59, 0.16);
+  --on-aegean: #FBFBFA;
+
+  --display: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+  --text: "EB Garamond", Garamond, "Times New Roman", serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --marble: #0C1624;
+    --surface: #122035;
+    --ink: #E8ECF1;
+    --muted: #9DABBD;
+    --aegean: #86B5E0;
+    --aegean-soft: rgba(134, 181, 224, 0.1);
+    --gold: #D2AD5A;
+    --line: rgba(232, 236, 241, 0.14);
+    --on-aegean: #0C1624;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --marble: #0C1624;
+  --surface: #122035;
+  --ink: #E8ECF1;
+  --muted: #9DABBD;
+  --aegean: #86B5E0;
+  --aegean-soft: rgba(134, 181, 224, 0.1);
+  --gold: #D2AD5A;
+  --line: rgba(232, 236, 241, 0.14);
+  --on-aegean: #0C1624;
+  color-scheme: dark;
+}
+
+/* Zonele sigure de pe telefoane (notch, bara de jos) */
+:root {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--marble);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 1.1875rem;
+  line-height: 1.6;
+}
+
+img, svg { max-width: 100%; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- Meandru grecesc ---------- */
+
+.meander {
+  height: 14px;
+  background: var(--gold);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14'%3E%3Cpath d='M0 13H24M2 13V1H18V9H8V5H13' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x left center / 24px 14px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14'%3E%3Cpath d='M0 13H24M2 13V1H18V9H8V5H13' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x left center / 24px 14px;
+}
+
+/* ---------- Antet și subsol ---------- */
+
+.site-header {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  background: none;
+  border: 0;
+  padding: 0.25rem 0;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-link:hover { color: var(--ink); }
+
+.lang {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lang button {
+  background: none;
+  border: 0;
+  padding: 0.3rem 0.75rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  cursor: pointer;
+}
+.lang button[aria-pressed="true"] {
+  background: var(--aegean);
+  color: var(--on-aegean);
+}
+
+.page {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 4rem;
+}
+
+/* ---------- Butoane ---------- */
+
+.btn {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--aegean);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--aegean);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn:hover { background: var(--aegean-soft); }
+
+.btn.primary {
+  background: var(--aegean);
+  color: var(--on-aegean);
+}
+.btn.primary:hover { filter: brightness(1.08); }
+
+.btn.link {
+  border: 0;
+  padding: 0.5rem 0;
+  background: none;
+  font-family: var(--text);
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 2.5rem 0 2rem;
+}
+.actions.center { justify-content: center; }
+
+/* ---------- Iconițe ---------- */
+
+.icon {
+  display: inline-block;
+  color: var(--gold);
+  line-height: 0;
+}
+.icon svg {
+  width: 48px;
+  height: 48px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon.small svg { width: 32px; height: 32px; }
+.icon.big svg { width: 84px; height: 84px; stroke-width: 1.6; }
+
+/* ---------- Pagina de start ---------- */
+
+.hero {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.3rem, 7.5vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  margin: 2.5rem auto 1.25rem;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 34em;
+  margin: 0 auto 2rem;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+.note {
+  margin: 0.9rem 0 0;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.frieze {
+  list-style: none;
+  padding: 0;
+  margin: 3.5rem 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem 0.5rem;
+}
+.frieze li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.frieze-name {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+/* ---------- Chestionar ---------- */
+
+.quiz { padding-top: 1.5rem; }
+
+.progress {
+  height: 3px;
+  background: var(--line);
+}
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.35s ease;
+}
+
+.counter {
+  margin: 1.25rem 0 0.25rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.question {
+  font-family: var(--text);
+  font-weight: 500;
+  font-size: clamp(1.65rem, 4.6vw, 2.2rem);
+  line-height: 1.25;
+  margin: 0 0 1.75rem;
+  text-wrap: balance;
+}
+.question:focus { outline: none; }
+
+.answers {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.answer {
+  text-align: left;
+  font: inherit;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.95rem 1.15rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+.answer:hover { border-color: var(--gold); }
+.answer.selected {
+  border-color: var(--aegean);
+  background: var(--aegean-soft);
+  box-shadow: inset 4px 0 0 var(--aegean);
+}
+.answer.with-icon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ---------- Rezultat (stela) ---------- */
+
+.stele {
+  margin-top: 1rem;
+  padding: 1.25rem clamp(1.25rem, 5vw, 3.25rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.stele-head {
+  text-align: center;
+  padding: 2.25rem 0 1rem;
+}
+
+.you-are {
+  margin: 1rem 0 0;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--muted);
+}
+
+.stele h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 9vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  margin: 0.1rem 0 0;
+  text-wrap: balance;
+  animation: inscribe 1s ease-out both;
+}
+.stele h1:focus { outline: none; }
+
+@keyframes inscribe {
+  from { opacity: 0; letter-spacing: 0.28em; }
+  to   { opacity: 1; letter-spacing: 0.06em; }
+}
+
+.years {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.tagline {
+  margin: 0.75rem 0 0;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+.desc {
+  font-size: 1.3rem;
+  line-height: 1.55;
+  max-width: 36em;
+  margin: 1.5rem auto 0;
+}
+
+.stele blockquote {
+  margin: 2.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.stele blockquote p {
+  margin: 0;
+  font-style: italic;
+  font-size: clamp(1.4rem, 4vw, 1.75rem);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.stele blockquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-style: normal;
+  font-family: var(--display);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.stele h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--aegean);
+  margin: 2.25rem 0 0.5rem;
+}
+
+.ideas {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.ideas li { margin-bottom: 0.4rem; }
+.ideas li::marker { color: var(--gold); }
+
+.scores {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.scores li {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 11rem) 1fr 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.05rem;
+}
+.score-pct {
+  text-align: right;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.bar {
+  height: 8px;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--aegean);
+  border-radius: 4px;
+}
+.scores li.winner { font-weight: 500; }
+.scores li.winner .bar span { background: var(--gold); }
+
+.also {
+  margin: 1rem 0 0;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.story p {
+  margin: 0 0 1rem;
+  max-width: 38em;
+}
+.story p:first-child::first-letter {
+  float: left;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 3.4em;
+  line-height: 0.85;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--gold);
+}
+
+.facts {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.facts li {
+  padding: 0.85rem 1.1rem;
+  border-left: 3px solid var(--gold);
+  background: var(--aegean-soft);
+}
+
+.traits {
+  list-style: none;
+  padding: 0;
+  margin: 1.1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.traits li {
+  padding: 0.2rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.98rem;
+  color: var(--ink);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 2rem;
+}
+.ideas.plus li::marker { content: "+  "; color: var(--gold); font-weight: 600; }
+.ideas.minus li::marker { content: "–  "; color: var(--muted); font-weight: 600; }
+
+.compat {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.compat-card {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+}
+.compat-card .icon { flex: none; }
+.compat-card .icon svg { width: 40px; height: 40px; }
+.compat-card p { margin: 0; }
+.compat-label {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.compat-name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  margin: 0.1rem 0 0.35rem !important;
+}
+.compat-why { font-size: 1.02rem; line-height: 1.5; }
+
+.advice {
+  margin: 2.5rem 0 0;
+  padding: 1.25rem 1.4rem;
+  background: var(--aegean);
+  color: var(--on-aegean);
+}
+.stele .advice h2 {
+  margin: 0 0 0.4rem;
+  color: var(--on-aegean);
+  opacity: 0.85;
+}
+.advice p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+/* ---------- Galerie ---------- */
+
+.gallery-page { padding-top: 1.5rem; }
+
+.gallery-page > h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin: 1rem 0 0.5rem;
+}
+.gallery-page > h1:focus { outline: none; }
+.gallery-page > .lead { text-align: center; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1rem;
+}
+
+.figure {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  padding: 1.5rem 1.4rem 1.25rem;
+}
+.figure h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  margin: 0.75rem 0 0;
+}
+.figure .tagline { margin-top: 0.4rem; font-size: 0.9rem; }
+.figure-quote {
+  font-style: italic;
+  margin: 0.9rem 0;
+  font-size: 1.1rem;
+}
+.figure-bio {
+  margin: 0 0 0.9rem;
+  font-size: 1.02rem;
+  color: var(--muted);
+}
+.figure .ideas { font-size: 1.02rem; }
+
+/* ---------- Notificare ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translate(-50%, 1rem);
+  padding: 0.6rem 1.1rem;
+  background: var(--ink);
+  color: var(--marble);
+  border-radius: 3px;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Ecrane mici ---------- */
+
+@media (max-width: 600px) {
+  body { font-size: 1.125rem; }
+  .two-col, .compat { grid-template-columns: 1fr; }
+  .frieze { grid-template-columns: repeat(3, 1fr); }
+  .scores li { grid-template-columns: 6.5rem 1fr 2.75rem; font-size: 1rem; }
+  .actions .btn:not(.link) { flex: 1 1 100%; }
+  .header-right { gap: 0.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="./" data-action="home" data-i18n="brand">Agora</a>
+    <a class="brand" href="#" data-action="home" data-i18n="brand">Agora</a>
     <div class="header-right">
       <button class="nav-link" data-action="gallery" data-i18n="navGallery">Filosofii</button>
       <div class="lang" role="group" aria-label="Limba / Language">
@@ -23,16 +683,1161 @@
     </div>
   </header>
 
-  <main id="app" class="page" aria-live="polite"></main>
+  <main id="app" class="page" aria-live="polite">
+    <section class="hero">
+      <div class="meander" aria-hidden="true"></div>
+      <h1>Ce filosof antic ești?</h1>
+      <p class="lead nojs-msg">Testul nu poate rula în această previzualizare. Copiază linkul și deschide-l în Safari sau Chrome.</p>
+      <p class="note nojs-msg">The quiz can’t run in this preview. Copy the link and open it in Safari or Chrome.</p>
+    </section>
+  </main>
 
-  <footer class="site-footer">
-    <span data-i18n="footer">Proiect pentru cursul de filosofie</span>
-    <a href="qr.html" data-i18n="footerQr">Cod QR pentru acces</a>
-  </footer>
 
   <div id="toast" class="toast" role="status"></div>
 
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <script>
+/* =========================================================
+   Datele testului: filosofi, întrebări și textele interfeței.
+   Pentru a modifica o întrebare sau un text, editează aici.
+   Fiecare text are două variante: ro (română) și en (engleză).
+   ========================================================= */
+
+const KEYS = ["socrates", "plato", "aristotle", "diogenes", "epicurus", "zeno"];
+
+const ICONS = {
+  // Cupa (kylix)
+  socrates: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 22h48c0 12-10 20-24 20S8 34 8 22z"/><path d="M8 24c-6 0-7 7-1 8M56 24c6 0 7 7 1 8"/><path d="M32 42v10M22 56h20"/></svg>',
+  // Peștera și lumina
+  plato: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 56V36a24 24 0 0 1 48 0v20"/><circle cx="32" cy="40" r="6"/><path d="M32 28v-5M41 31l3-3M23 31l-3-3M44 40h5M15 40h5"/><path d="M2 56h60"/></svg>',
+  // Sulul
+  aristotle: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 12h30v40H18z"/><path d="M14 12a4 4 0 0 1 8 0M44 52a4 4 0 0 0 8 0"/><path d="M24 22h18M24 30h18M24 38h12"/></svg>',
+  // Felinarul
+  diogenes: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4v6M27 10h10v6H27z"/><path d="M24 16h16l4 6v22l-4 6H24l-4-6V22z"/><path d="M32 26c-4 5-4 10 0 12 4-2 4-7 0-12z"/><path d="M26 56h12"/></svg>',
+  // Ramura de măslin
+  epicurus: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 56C22 42 36 26 54 8"/><path d="M22 43c-8-1-12-6-12-6s6-3 12 0M30 34c1-8 6-12 6-12s3 6 0 12M38 26c-8-1-12-6-12-6s6-3 12 0M45 18c1-7 5-10 5-10s3 5 0 10"/></svg>',
+  // Coloana (stoa)
+  zeno: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 10h40M16 15h32M16 50h32M12 55h40M8 60h48"/><path d="M22 15v35M28 15v35M36 15v35M42 15v35"/></svg>'
+};
+
+const PROFILES = {
+  socrates: {
+    name: { ro: "Socrate", en: "Socrates" },
+    years: { ro: "c. 470–399 î.Hr.", en: "c. 470–399 BC" },
+    tagline: { ro: "Cel care pune întrebări", en: "The questioner" },
+    description: {
+      ro: "Ești curios și nu te mulțumești cu răspunsuri gata făcute. Preferi să recunoști că nu știi decât să pretinzi că știi, iar cele mai bune idei îți vin în discuții cu alții. Pentru tine, cunoașterea de sine stă la baza unei vieți bune.",
+      en: "You’re curious and never settle for ready-made answers. You’d rather admit you don’t know than pretend you do, and your best ideas come from talking things through with others. For you, knowing yourself is the foundation of a good life."
+    },
+    bio: {
+      ro: [
+        "S-a născut la Atena în jurul anului 470 î.Hr., fiul unui cioplitor în piatră și al unei moașe. Era scund, cu nasul cârn și ochii bulbucați, umbla desculț și iarna, și vara și își petrecea zilele în agora, oprind pe oricine ca să-l întrebe ce este curajul, dreptatea sau binele. Spre deosebire de sofiștii vremii, nu cerea niciodată bani pentru lecții.",
+        "Oracolul din Delfi a declarat că nu există om mai înțelept decât Socrate. Nedumerit, el a început să-i ia la întrebări pe politicieni, poeți și meșteșugari și a descoperit că ei credeau că știu, dar de fapt nu știau. El, cel puțin, știa că nu știe. Întrebările lui i-au adus mulți dușmani: în 399 î.Hr. a fost acuzat că nu respectă zeii cetății și că strică tineretul, iar juriul l-a condamnat la moarte. Prietenii i-au pregătit evadarea, dar a refuzat, spunând că nu poate încălca legile pe care le-a respectat toată viața."
+      ],
+      en: [
+        "He was born in Athens around 470 BC, the son of a stonemason and a midwife. He was short, with a snub nose and bulging eyes, went barefoot in winter and summer, and spent his days in the agora, stopping anyone to ask them what courage, justice or goodness really are. Unlike the sophists of his time, he never charged money for teaching.",
+        "The oracle at Delphi declared that no one was wiser than Socrates. Puzzled, he began questioning politicians, poets and craftsmen, and found that they thought they knew things they didn’t. He, at least, knew that he didn’t know. His questions made him many enemies: in 399 BC he was accused of disrespecting the city’s gods and corrupting the young, and the jury sentenced him to death. His friends arranged an escape, but he refused, saying he couldn’t break the laws he had obeyed all his life."
+      ]
+    },
+    ideas: {
+      ro: [
+        "Maieutica: adevărul se „naște” prin întrebări și dialog.",
+        "„Știu că nu știu nimic”: înțelepciunea începe cu recunoașterea propriei ignoranțe.",
+        "Virtutea este cunoaștere: cine știe ce e binele, face binele."
+      ],
+      en: [
+        "Maieutics: truth is “delivered” through questions and dialogue.",
+        "“I know that I know nothing”: wisdom begins with admitting your own ignorance.",
+        "Virtue is knowledge: whoever truly knows the good will do the good."
+      ]
+    },
+    quote: { ro: "O viață necercetată nu merită trăită.", en: "The unexamined life is not worth living." },
+    facts: {
+      ro: [
+        "Își compara metoda cu meseria mamei lui: așa cum o moașă ajută la nașterea copiilor, el îi ajuta pe ceilalți să „nască” idei. De aici vine cuvântul „maieutică”.",
+        "A luptat ca soldat în războiul peloponesiac și i-a salvat viața tânărului Alcibiade, viitor general, în bătălia de la Potideea.",
+        "N-a scris nimic. Tot ce știm despre el vine de la elevii lui, mai ales de la Platon. Ultimele lui cuvinte, după ce a băut cucuta, ar fi fost: „Criton, îi datorăm un cocoș lui Asclepios.” Asclepios era zeul vindecării, ca și cum moartea ar fi fost leacul."
+      ],
+      en: [
+        "He compared his method to his mother’s job: just as a midwife helps deliver babies, he helped others “give birth” to ideas. That’s where the word “maieutics” comes from.",
+        "He fought as a soldier in the Peloponnesian War and saved the life of young Alcibiades, a future general, at the battle of Potidaea.",
+        "He never wrote anything. Everything we know about him comes from his students, mainly Plato. His last words after drinking the hemlock are said to have been: “Crito, we owe a rooster to Asclepius.” Asclepius was the god of healing, as if death were the cure."
+      ]
+    }
+  },
+
+  plato: {
+    name: { ro: "Platon", en: "Plato" },
+    years: { ro: "c. 428–348 î.Hr.", en: "c. 428–348 BC" },
+    tagline: { ro: "Idealistul", en: "The idealist" },
+    description: {
+      ro: "Crezi că dincolo de lumea pe care o vezi există ceva mai perfect și mai adevărat. Te atrag frumusețea, dreptatea și ideile mari, și visezi la o lume organizată după ele. Uneori pari cu capul în nori, dar tocmai de acolo vezi mai departe.",
+      en: "You believe that beyond the world you see lies something more perfect and more true. Beauty, justice and big ideas draw you in, and you dream of a world built around them. You may seem to have your head in the clouds, but that’s exactly why you see further."
+    },
+    bio: {
+      ro: [
+        "S-a născut în jurul anului 428 î.Hr. într-una dintre cele mai bogate familii aristocratice din Atena. Se spune că numele lui adevărat era Aristocles, iar „Platon” (de la grecescul platys, „lat”) ar fi fost o poreclă de la antrenorul de lupte, din cauza umerilor largi. În tinerețe scria tragedii și visa la o carieră politică.",
+        "Totul s-a schimbat când l-a cunoscut pe Socrate. După ce profesorul lui a fost executat, Platon s-a dezamăgit de politica Atenei și a plecat ani de zile în călătorie. În Sicilia a încercat să-l transforme pe tiranul Dionisie din Siracuza într-un rege-filosof, dar relația s-a stricat atât de rău încât, potrivit tradiției, a ajuns vândut ca sclav și a fost răscumpărat de un prieten. Întors la Atena, a fondat Academia, unde a predat aproape 40 de ani."
+      ],
+      en: [
+        "He was born around 428 BC into one of the richest aristocratic families in Athens. Legend says his real name was Aristocles, and that “Plato” (from the Greek platys, “broad”) was a nickname from his wrestling coach because of his wide shoulders. As a young man he wrote tragedies and dreamed of a career in politics.",
+        "Everything changed when he met Socrates. After his teacher was executed, Plato lost faith in Athenian politics and spent years travelling. In Sicily he tried to turn Dionysius, the tyrant of Syracuse, into a philosopher-king, but things went so badly that, according to tradition, he was sold as a slave and ransomed by a friend. Back in Athens he founded the Academy, where he taught for almost 40 years."
+      ]
+    },
+    ideas: {
+      ro: [
+        "Lumea Ideilor: lucrurile din jur sunt doar copii imperfecte ale unor forme eterne.",
+        "Mitul peșterii: majoritatea oamenilor confundă umbrele cu realitatea.",
+        "Statul ideal ar trebui condus de filosofi."
+      ],
+      en: [
+        "The world of Forms: the things around us are imperfect copies of eternal Forms.",
+        "The allegory of the cave: most people mistake shadows for reality.",
+        "The ideal state should be ruled by philosophers."
+      ]
+    },
+    quote: { ro: "Începutul este partea cea mai importantă a lucrării.", en: "The beginning is the most important part of the work." },
+    facts: {
+      ro: [
+        "Academia se afla într-o grădină închinată eroului Akademos. De la numele lui vin cuvintele „academie” și „academic”, pe care le folosim și azi.",
+        "Legenda Atlantidei, insula care s-a scufundat într-o singură zi și o noapte, apare pentru prima dată în două dialoguri ale lui Platon, Timaios și Critias.",
+        "E unul dintre puținii autori antici a căror operă s-a păstrat aproape în întregime. Filosoful Alfred North Whitehead spunea că toată filosofia europeană e doar un șir de note de subsol la Platon."
+      ],
+      en: [
+        "The Academy stood in a grove dedicated to the hero Akademos. His name gave us the words “academy” and “academic”, still used today.",
+        "The legend of Atlantis, the island that sank in a single day and night, first appears in two of Plato’s dialogues, Timaeus and Critias.",
+        "He is one of the few ancient authors whose work survives almost entirely. The philosopher Alfred North Whitehead said all of European philosophy is just a series of footnotes to Plato."
+      ]
+    }
+  },
+
+  aristotle: {
+    name: { ro: "Aristotel", en: "Aristotle" },
+    years: { ro: "384–322 î.Hr.", en: "384–322 BC" },
+    tagline: { ro: "Omul echilibrului", en: "The balanced mind" },
+    description: {
+      ro: "Ești practic, organizat și analitic. Vrei să înțelegi lucrurile observându-le, comparându-le și punându-le în ordine. În viață cauți calea de mijloc: nici prea mult, nici prea puțin.",
+      en: "You’re practical, organised and analytical. You want to understand things by observing them, comparing them and putting them in order. In life you look for the middle way: neither too much nor too little."
+    },
+    bio: {
+      ro: [
+        "S-a născut în 384 î.Hr. la Stagira, în nordul Greciei, de aceea i se mai spune „Stagiritul”. Tatăl lui era medicul regelui Macedoniei, așa că a crescut aproape de curtea regală și de lumea medicinei. La 17 ani a plecat la Atena și a intrat la Academia lui Platon, unde a rămas aproape 20 de ani. Se spune că Platon îl numea „mintea școlii”.",
+        "După moartea lui Platon a trăit o vreme pe insula Lesbos, unde a studiat animalele marine din lagune, apoi regele Filip al II-lea l-a chemat să-l educe pe fiul său de 13 ani, viitorul Alexandru cel Mare. În 335 î.Hr. și-a deschis propria școală la Atena, Liceul, și a scris despre aproape tot: logică, fizică, biologie, etică, politică și poezie. Când Alexandru a murit, atenienii s-au întors împotriva macedonenilor, iar Aristotel a fost acuzat de impietate. A plecat din oraș ca atenienii „să nu păcătuiască de două ori împotriva filosofiei”, cu gândul la Socrate."
+      ],
+      en: [
+        "He was born in 384 BC in Stagira, in northern Greece, which is why he’s also called “the Stagirite”. His father was physician to the king of Macedon, so he grew up close to the royal court and the world of medicine. At 17 he went to Athens and joined Plato’s Academy, where he stayed for almost 20 years. Plato reportedly called him “the mind of the school”.",
+        "After Plato died he lived for a while on the island of Lesbos, studying marine animals in its lagoons. Then King Philip II invited him to tutor his 13-year-old son, the future Alexander the Great. In 335 BC he opened his own school in Athens, the Lyceum, and wrote about almost everything: logic, physics, biology, ethics, politics and poetry. When Alexander died, the Athenians turned against the Macedonians and Aristotle was charged with impiety. He left the city so that Athens would not “sin twice against philosophy”, thinking of Socrates."
+      ]
+    },
+    ideas: {
+      ro: [
+        "Virtutea este media dintre două extreme: curajul stă între lașitate și nesăbuință.",
+        "Logica: a pus bazele raționamentului corect, prin silogism.",
+        "Scopul vieții este eudaimonia, o viață împlinită, trăită după rațiune."
+      ],
+      en: [
+        "Virtue is the mean between two extremes: courage lies between cowardice and recklessness.",
+        "Logic: he laid the foundations of correct reasoning with the syllogism.",
+        "The goal of life is eudaimonia, a flourishing life guided by reason."
+      ]
+    },
+    quote: { ro: "Omul este prin natura sa o ființă socială.", en: "Man is by nature a social animal." },
+    facts: {
+      ro: [
+        "Preda plimbându-se pe aleile acoperite ale Liceului, de aceea elevii lui au fost numiți „peripatetici”, adică „cei care se plimbă”.",
+        "Nu a avut mereu dreptate: credea că obiectele grele cad mai repede decât cele ușoare și că femeile au mai puțini dinți decât bărbații. Prima idee a fost contrazisă abia de Galileo, aproape 2000 de ani mai târziu.",
+        "În Evul Mediu autoritatea lui era atât de mare încât învățații îl numeau simplu „Filosoful”, fără să mai fie nevoie de nume."
+      ],
+      en: [
+        "He taught while walking along the Lyceum’s covered paths, so his students became known as “peripatetics”, meaning “those who walk around”.",
+        "He wasn’t always right: he believed heavy objects fall faster than light ones and that women have fewer teeth than men. The first idea wasn’t overturned until Galileo, almost 2,000 years later.",
+        "In the Middle Ages his authority was so great that scholars simply called him “the Philosopher”, with no name needed."
+      ]
+    }
+  },
+
+  diogenes: {
+    name: { ro: "Diogene", en: "Diogenes" },
+    years: { ro: "c. 412–323 î.Hr.", en: "c. 412–323 BC" },
+    tagline: { ro: "Rebelul", en: "The rebel" },
+    description: {
+      ro: "Nu-ți pasă de convenții, de bani sau de ce cred alții. Spui lucrurilor pe nume, chiar dacă deranjează, și știi că ai nevoie de foarte puțin ca să fii liber. Pentru tine, cele mai multe reguli sociale sunt doar teatru.",
+      en: "You don’t care about conventions, money or what other people think. You call things by their name, even when it bothers people, and you know you need very little to be free. To you, most social rules are just theatre."
+    },
+    bio: {
+      ro: [
+        "S-a născut în jurul anului 412 î.Hr. la Sinope, un oraș grecesc pe țărmul Mării Negre, în actuala Turcie. Tatăl lui era bancher, iar unul dintre ei, poate chiar Diogene, a fost prins falsificând monedele orașului. Exilat, Diogene a transformat rușinea în misiune: spunea că rostul lui e să „falsifice moneda”, adică să arate că valorile acceptate de toți sunt false.",
+        "La Atena a dormit într-un vas mare de lut lângă piață, a purtat o singură mantie și a trăit din ce primea de la alții. Ziua în amiaza mare umbla cu un felinar aprins, spunând că „caută un om”. Atenienii îl porecleau „câinele” (în greacă kyon), iar el a primit porecla cu mândrie. De la ea vine cuvântul „cinic”. Mai târziu a fost capturat de pirați și vândut ca sclav în Corint. Întrebat ce știe să facă, a răspuns: „Să conduc oameni. Vinde-mă cuiva care are nevoie de un stăpân.” Cel care l-a cumpărat l-a făcut profesorul copiilor săi."
+      ],
+      en: [
+        "He was born around 412 BC in Sinope, a Greek city on the Black Sea coast, in today’s Turkey. His father was a banker, and one of them, perhaps Diogenes himself, was caught defacing the city’s coins. Exiled, Diogenes turned the disgrace into a mission: he said his purpose was to “deface the currency”, meaning to show that the values everyone accepts are fake.",
+        "In Athens he slept in a large clay jar near the market, wore a single cloak and lived on what others gave him. In broad daylight he walked around with a lit lantern, saying he was “looking for a human being”. The Athenians nicknamed him “the dog” (kyon in Greek), and he wore the name proudly. That’s where the word “cynic” comes from. Later he was captured by pirates and sold as a slave in Corinth. Asked what he could do, he replied: “Govern men. Sell me to someone who needs a master.” The man who bought him made him tutor to his children."
+      ]
+    },
+    ideas: {
+      ro: [
+        "Cinismul: o viață simplă, în acord cu natura, fără lux.",
+        "Normele sociale, averea și statutul nu au valoare în sine.",
+        "Libertatea vine din a avea nevoie de cât mai puțin."
+      ],
+      en: [
+        "Cynicism: a simple life in agreement with nature, free of luxury.",
+        "Social norms, wealth and status have no value in themselves.",
+        "Freedom comes from needing as little as possible."
+      ]
+    },
+    quote: { ro: "Sunt cetățean al lumii.", en: "I am a citizen of the world." },
+    facts: {
+      ro: [
+        "Avea o singură cupă. Când a văzut un copil bând apă din palme, a aruncat-o și a spus: „Un copil m-a întrecut în simplitate.”",
+        "Când Platon a definit omul drept „un animal biped fără pene”, Diogene a jumulit un cocoș, l-a adus la Academie și a strigat: „Iată omul lui Platon!” Platon a adăugat apoi la definiție „cu unghii late”.",
+        "Când Alexandru cel Mare l-a vizitat și l-a întrebat ce își dorește, Diogene, care stătea la soare, i-a răspuns: „Dă-te puțin la o parte, că-mi iei soarele.” Alexandru ar fi spus apoi: „Dacă n-aș fi Alexandru, aș vrea să fiu Diogene.”"
+      ],
+      en: [
+        "He owned a single cup. When he saw a child drinking water from cupped hands, he threw it away and said: “A child has beaten me in simplicity.”",
+        "When Plato defined man as “a featherless biped”, Diogenes plucked a rooster, brought it to the Academy and shouted: “Here is Plato’s man!” Plato then added “with broad nails” to the definition.",
+        "When Alexander the Great visited him and asked what he wanted, Diogenes, who was lying in the sun, replied: “Stand a little out of my sunlight.” Alexander is said to have remarked: “If I weren’t Alexander, I would want to be Diogenes.”"
+      ]
+    }
+  },
+
+  epicurus: {
+    name: { ro: "Epicur", en: "Epicurus" },
+    years: { ro: "341–270 î.Hr.", en: "341–270 BC" },
+    tagline: { ro: "Căutătorul liniștii", en: "The seeker of calm" },
+    description: {
+      ro: "Pentru tine fericirea înseamnă prieteni buni, plăceri simple și o minte fără griji. Nu alergi după faimă sau bani și eviți agitația inutilă. Știi să te bucuri de o cină lungă, o conversație bună și o după-amiază liniștită.",
+      en: "For you, happiness means good friends, simple pleasures and a mind free of worry. You don’t chase fame or money, and you avoid needless stress. You know how to enjoy a long dinner, a good conversation and a quiet afternoon."
+    },
+    bio: {
+      ro: [
+        "S-a născut în 341 î.Hr. pe insula Samos, într-o familie modestă de coloniști atenieni; tatăl lui era învățător. Se spune că a început să se intereseze de filosofie la 14 ani, când profesorul lui n-a putut să-i explice de unde a apărut haosul din care, după poeți, s-a născut lumea.",
+        "În 306 î.Hr. a cumpărat la Atena o casă cu grădină și și-a deschis acolo școala. Potrivit lui Seneca, pe poartă scria că vizitatorii vor fi bine primiți și că aici binele suprem este plăcerea. Dar nu era vorba de petreceri: discipolii trăiau simplu, cu pâine, apă și legume, și puneau prietenia mai presus de orice. A scris aproape 300 de cărți, din care s-au păstrat doar câteva scrisori și maxime. A murit după două săptămâni de dureri cumplite, dar în ultima scrisoare a numit acea zi „fericită”, pentru că se gândea la discuțiile cu prietenii."
+      ],
+      en: [
+        "He was born in 341 BC on the island of Samos, into a modest family of Athenian settlers; his father was a schoolteacher. He reportedly got hooked on philosophy at 14, when his teacher couldn’t explain where the chaos came from that, according to the poets, the world was born out of.",
+        "In 306 BC he bought a house with a garden in Athens and opened his school there. According to Seneca, the gate promised visitors a warm welcome and declared that here the highest good was pleasure. But this wasn’t about partying: his followers lived on bread, water and vegetables and valued friendship above all. He wrote almost 300 books, of which only a few letters and sayings survive. He died after two weeks of terrible pain, yet in his last letter he called that day “happy”, because he was thinking of his conversations with friends."
+      ]
+    },
+    ideas: {
+      ro: [
+        "Plăcerea înseamnă absența durerii și a neliniștii (ataraxia), nu excesul.",
+        "Prietenia este unul dintre cele mai mari bunuri ale vieții.",
+        "Frica de moarte și de zei ne strică viața fără motiv."
+      ],
+      en: [
+        "Pleasure means the absence of pain and anxiety (ataraxia), not excess.",
+        "Friendship is one of the greatest goods in life.",
+        "Fear of death and of the gods spoils our lives for no reason."
+      ]
+    },
+    quote: { ro: "Moartea nu este nimic pentru noi.", en: "Death is nothing to us." },
+    facts: {
+      ro: [
+        "Într-o scrisoare îi cerea unui prieten: „Trimite-mi un vas mic cu brânză, ca să mă pot ospăta când vreau.” Pentru el, atât însemna un ospăț.",
+        "Și-a rezumat filosofia ca pe un „leac în patru părți”: nu te teme de zei, nu te îngrijora de moarte, binele e ușor de obținut, iar răul e ușor de îndurat.",
+        "O bibliotecă plină cu texte ale epicurienilor a fost îngropată de erupția Vezuviului în anul 79, la Herculaneum. Sulurile carbonizate sunt citite azi cu ajutorul razelor X și al inteligenței artificiale."
+      ],
+      en: [
+        "In one letter he asked a friend: “Send me a little pot of cheese, so that I can feast whenever I like.” To him, that was a feast.",
+        "He summed up his philosophy as a “fourfold cure”: don’t fear the gods, don’t worry about death, what is good is easy to get, and what is bad is easy to endure.",
+        "A library full of Epicurean texts was buried by the eruption of Vesuvius in AD 79, at Herculaneum. Today the charred scrolls are being read with X-rays and artificial intelligence."
+      ]
+    }
+  },
+
+  zeno: {
+    name: { ro: "Zenon din Kition", en: "Zeno of Citium" },
+    years: { ro: "c. 334–262 î.Hr.", en: "c. 334–262 BC" },
+    tagline: { ro: "Stoicul", en: "The stoic" },
+    description: {
+      ro: "Rămâi calm când alții intră în panică. Îți controlezi emoțiile, accepți ce nu poți schimba și te concentrezi pe ce depinde de tine. Ai simțul datoriei, iar oamenii se bazează pe tine când e greu.",
+      en: "You stay calm when others panic. You keep your emotions in check, accept what you can’t change and focus on what’s up to you. You have a strong sense of duty, and people rely on you when things get hard."
+    },
+    bio: {
+      ro: [
+        "S-a născut în jurul anului 334 î.Hr. în orașul Kition din Cipru și era negustor de purpură, vopseaua scumpă folosită pentru hainele regilor. Pe la 30 de ani, corabia lui a naufragiat lângă Atena și și-a pierdut toată marfa. Ajuns în oraș, a intrat într-o librărie și a început să citească o carte despre Socrate. Impresionat, l-a întrebat pe librar unde poate găsi oameni ca acela. Librarul i l-a arătat pe filosoful Crates, care tocmai trecea pe stradă: „Urmează-l pe el.”",
+        "Zenon chiar l-a urmat și a studiat ani de zile cu mai mulți filosofi, apoi a început să predea sub Stoa Poikile, un portic public din piața Atenei, decorat cu picturi ale bătăliei de la Maraton. Fiind un loc public, oricine putea să-l asculte, bogat sau sărac. Trăia foarte simplu, cu pâine și smochine, și era admirat pentru autocontrolul lui. La moartea lui, atenienii l-au onorat cu o coroană de aur și un mormânt ridicat pe cheltuiala orașului."
+      ],
+      en: [
+        "He was born around 334 BC in the city of Citium, on Cyprus, and traded in purple dye, the expensive colour used for royal robes. At about 30, his ship was wrecked near Athens and he lost all his cargo. In the city he walked into a bookshop and started reading a book about Socrates. Impressed, he asked the bookseller where he could find men like that. The bookseller pointed to the philosopher Crates, who happened to be walking past: “Follow him.”",
+        "Zeno did follow him, studied with several philosophers for years, and then began teaching under the Stoa Poikile, a public colonnade in the Athenian market decorated with paintings of the battle of Marathon. Because it was a public place, anyone could listen, rich or poor. He lived very simply on bread and figs and was admired for his self-control. When he died, the Athenians honoured him with a golden crown and a tomb built at the city’s expense."
+      ]
+    },
+    ideas: {
+      ro: [
+        "Stoicismul: a trăi în acord cu natura și cu rațiunea.",
+        "Unele lucruri depind de noi, altele nu, iar liniștea vine din a face diferența.",
+        "Virtutea este singurul bine adevărat; restul sunt lucruri „indiferente”."
+      ],
+      en: [
+        "Stoicism: living in agreement with nature and reason.",
+        "Some things are up to us and some are not, and peace comes from knowing the difference.",
+        "Virtue is the only true good; everything else is “indifferent”."
+      ]
+    },
+    quote: { ro: "Scopul vieții este să trăiești în acord cu natura.", en: "The goal of life is to live in agreement with nature." },
+    facts: {
+      ro: [
+        "Despre naufragiul lui spunea: „Am avut o călătorie norocoasă atunci când am naufragiat”, pentru că așa a ajuns la filosofie.",
+        "Stoicismul a avut adepți de la sclavi la împărați: Epictet a fost sclav, Seneca a fost consilierul lui Nero, iar Marcus Aurelius a fost împăratul Romei.",
+        "Ideea stoică după care nu întâmplările ne supără, ci felul în care le judecăm, a inspirat terapia cognitiv-comportamentală, una dintre cele mai folosite forme de psihoterapie de azi."
+      ],
+      en: [
+        "About his shipwreck he said: “I made a prosperous voyage when I was shipwrecked”, because that is how he found philosophy.",
+        "Stoicism had followers from slaves to emperors: Epictetus was a slave, Seneca advised Nero, and Marcus Aurelius was emperor of Rome.",
+        "The Stoic idea that we are upset not by events but by how we judge them inspired cognitive behavioural therapy, one of the most widely used forms of psychotherapy today."
+      ]
+    }
+  }
+};
+
+/* Trăsăturile de personalitate afișate în rezultat:
+   traits = cuvinte-cheie, strengths = puncte forte, watchOut = la ce să fii atent,
+   relations = cum ești cu ceilalți, match / clash = cu cine te-ai înțelege / contrazice,
+   advice = sfatul filosofului */
+const PERSONALITY = {
+  socrates: {
+    traits: { ro: ["Curios", "Sincer", "Ironic", "Vorbăreț", "Încăpățânat"], en: ["Curious", "Honest", "Ironic", "Talkative", "Stubborn"] },
+    strengths: {
+      ro: [
+        "Pui întrebările pe care alții se tem să le pună și ajungi la miezul problemei.",
+        "Asculți cu adevărat și îi faci pe ceilalți să gândească singuri.",
+        "Ești onest, chiar și atunci când adevărul te costă."
+      ],
+      en: [
+        "You ask the questions others are afraid to ask and get to the heart of the problem.",
+        "You really listen and help others think for themselves.",
+        "You’re honest, even when the truth costs you."
+      ]
+    },
+    watchOut: {
+      ro: [
+        "Poți obosi oamenii cu prea multe „de ce?”.",
+        "Uneori pari că știi mai bine, chiar când spui că nu știi nimic.",
+        "Analizezi atât de mult încât amâni deciziile."
+      ],
+      en: [
+        "You can wear people out with too many “why?”s.",
+        "Sometimes you seem to know better, even while claiming you know nothing.",
+        "You analyse so much that you put off decisions."
+      ]
+    },
+    relations: {
+      ro: "Ești prietenul cu care discuțiile durează până dimineața. Nu-ți plac conversațiile de suprafață și preferi câțiva oameni cu care poți vorbi deschis despre orice. Uneori îi provoci pe cei dragi cu întrebări incomode, dar o faci pentru că îți pasă de ei.",
+      en: "You’re the friend whose conversations last until dawn. You dislike small talk and prefer a few people you can talk to openly about anything. Sometimes you challenge the people you love with awkward questions, but you do it because you care."
+    },
+    match: {
+      with: "plato",
+      ro: "El visează mare, iar tu îl ții cu picioarele pe pământ prin întrebări. Împreună ați format una dintre cele mai faimoase perechi profesor–elev din istorie.",
+      en: "He dreams big and your questions keep him grounded. Together you formed one of the most famous teacher–student pairs in history."
+    },
+    clash: {
+      with: "epicurus",
+      ro: "El se retrage într-o grădină liniștită, departe de agitația cetății, iar tu vrei să discuți cu toată lumea în piață.",
+      en: "He retreats to a quiet garden far from city life, while you want to talk to everyone in the marketplace."
+    },
+    advice: {
+      ro: "Pune-ți în fiecare zi o întrebare grea și nu fugi de răspuns. Dar nu uita că și ceilalți au nevoie de pauze între întrebări.",
+      en: "Ask yourself one hard question every day and don’t run from the answer. But remember that others need breaks between questions too."
+    }
+  },
+
+  plato: {
+    traits: { ro: ["Visător", "Idealist", "Creativ", "Perfecționist", "Exigent"], en: ["Dreamy", "Idealistic", "Creative", "Perfectionist", "Demanding"] },
+    strengths: {
+      ro: [
+        "Vezi potențialul acolo unde alții văd doar probleme.",
+        "Ai simț estetic și apreciezi frumosul în artă, în idei și în oameni.",
+        "Gândești pe termen lung și construiești planuri mari."
+      ],
+      en: [
+        "You see potential where others see only problems.",
+        "You have an eye for beauty in art, ideas and people.",
+        "You think long-term and build big plans."
+      ]
+    },
+    watchOut: {
+      ro: [
+        "Realitatea te poate dezamăgi, pentru că nu arată ca idealul din mintea ta.",
+        "Poți părea distant sau prea teoretic.",
+        "Perfecționismul te poate opri să începi."
+      ],
+      en: [
+        "Reality can disappoint you because it never matches the ideal in your head.",
+        "You can come across as distant or too theoretical.",
+        "Perfectionism can stop you from getting started."
+      ]
+    },
+    relations: {
+      ro: "Cauți relații profunde, cu un sens mai mare decât simpla distracție, și te poți îndrăgosti de ideea despre un om la fel de mult ca de omul însuși. Nu întâmplător expresia „iubire platonică” îi poartă numele: o iubire care urcă de la frumusețea trupului la frumusețea sufletului.",
+      en: "You look for deep relationships with a meaning beyond fun, and you can fall for the idea of a person as much as for the person. It’s no accident that “platonic love” bears his name: a love that rises from the beauty of the body to the beauty of the soul."
+    },
+    match: {
+      with: "aristotle",
+      ro: "Îți aduce observația și ordinea de care au nevoie ideile tale ca să devină realitate.",
+      en: "He brings the observation and order your ideas need to become real."
+    },
+    clash: {
+      with: "diogenes",
+      ro: "Îți strică orice definiție frumoasă cu un cocoș jumulit și râde de lumea Ideilor.",
+      en: "He ruins every elegant definition with a plucked rooster and laughs at the world of Forms."
+    },
+    advice: {
+      ro: "Fă primul pas, chiar dacă nu e perfect. Ideile mari se construiesc din lucruri mici.",
+      en: "Take the first step, even if it isn’t perfect. Big ideas are built from small things."
+    }
+  },
+
+  aristotle: {
+    traits: { ro: ["Logic", "Organizat", "Echilibrat", "Practic", "Curios"], en: ["Logical", "Organised", "Balanced", "Practical", "Curious"] },
+    strengths: {
+      ro: [
+        "Știi să pui lucrurile în ordine și să găsești soluții practice.",
+        "Eviți extremele și iei decizii cumpătate.",
+        "Înveți din observație și experiență, nu doar din teorie."
+      ],
+      en: [
+        "You know how to put things in order and find practical solutions.",
+        "You avoid extremes and make measured decisions.",
+        "You learn from observation and experience, not just theory."
+      ]
+    },
+    watchOut: {
+      ro: [
+        "Poți fi prea rațional acolo unde e nevoie de empatie.",
+        "Îți place să ai dreptate și să pui totul în categorii.",
+        "Uneori analizezi atât de mult încât pierzi spontaneitatea."
+      ],
+      en: [
+        "You can be too rational where empathy is needed.",
+        "You like being right and putting everything into categories.",
+        "Sometimes you analyse so much that you lose spontaneity."
+      ]
+    },
+    relations: {
+      ro: "Aristotel deosebea trei feluri de prietenie: de folos, de plăcere și de virtute. Pe tine te atrage a treia: îți plac oamenii care te fac mai bun, nu doar cei utili sau amuzanți. Ești loial, de încredere și cel la care vin ceilalți după un sfat echilibrat.",
+      en: "Aristotle described three kinds of friendship: of usefulness, of pleasure and of virtue. You’re drawn to the third: you like people who make you better, not just useful or fun ones. You’re loyal, trustworthy and the one others come to for balanced advice."
+    },
+    match: {
+      with: "zeno",
+      ro: "Amândoi puneți rațiunea pe primul loc și prețuiți disciplina.",
+      en: "You both put reason first and value discipline."
+    },
+    clash: {
+      with: "plato",
+      ro: "El caută adevărul în lumea Ideilor, tu în lumea reală. Se spune că Aristotel ar fi zis: „Mi-e drag Platon, dar adevărul mi-e și mai drag.”",
+      en: "He looks for truth in the world of Forms, you look for it in the real world. Aristotle is said to have put it this way: “Plato is dear to me, but truth is dearer.”"
+    },
+    advice: {
+      ro: "Caută măsura potrivită în toate, inclusiv în cât de mult analizezi. Uneori cea mai bună decizie e să acționezi.",
+      en: "Look for the right measure in everything, including how much you analyse. Sometimes the best decision is to act."
+    }
+  },
+
+  diogenes: {
+    traits: { ro: ["Liber", "Direct", "Nonconformist", "Ironic", "Curajos"], en: ["Free", "Blunt", "Nonconformist", "Ironic", "Brave"] },
+    strengths: {
+      ro: [
+        "Ai curajul să spui ce alții gândesc doar în secret.",
+        "Nu depinzi de bani, de lucruri sau de aprobarea celorlalți.",
+        "Simți imediat când ceva e fals sau ipocrit."
+      ],
+      en: [
+        "You have the courage to say what others only think in secret.",
+        "You don’t depend on money, possessions or other people’s approval.",
+        "You instantly sense when something is fake or hypocritical."
+      ]
+    },
+    watchOut: {
+      ro: [
+        "Sinceritatea ta poate răni fără să vrei.",
+        "Poți respinge reguli care chiar au un rost.",
+        "Uneori provoci doar de dragul provocării."
+      ],
+      en: [
+        "Your honesty can hurt people without you meaning to.",
+        "You may reject rules that actually have a purpose.",
+        "Sometimes you provoke just for the sake of it."
+      ]
+    },
+    relations: {
+      ro: "Nu suporți relațiile de fațadă. Ai puțini prieteni, dar cu ei ești complet autentic. Oamenii fie te iubesc pentru sinceritate, fie nu te suportă, iar ție îți e totuna. Când cineva îți câștigă respectul, ești un prieten pe care nimic nu-l poate cumpăra.",
+      en: "You can’t stand fake relationships. You have few friends, but with them you’re completely genuine. People either love you for your honesty or can’t stand you, and you don’t mind either way. Once someone earns your respect, you’re a friend nothing can buy."
+    },
+    match: {
+      with: "zeno",
+      ro: "Stoicismul s-a născut din cinism: Crates, profesorul lui Zenon, fusese elevul lui Diogene. Amândoi disprețuiți luxul și trăiți simplu.",
+      en: "Stoicism grew out of Cynicism: Crates, Zeno’s teacher, had been a student of Diogenes. You both scorn luxury and live simply."
+    },
+    clash: {
+      with: "plato",
+      ro: "Tu vezi în teoriile lui doar vorbe frumoase, iar el te-a numit „un Socrate înnebunit”.",
+      en: "To you his theories are just pretty words, and he called you “a Socrates gone mad”."
+    },
+    advice: {
+      ro: "Păstrează-ți libertatea, dar alege-ți luptele. Nu orice regulă e o închisoare.",
+      en: "Keep your freedom, but choose your battles. Not every rule is a prison."
+    }
+  },
+
+  epicurus: {
+    traits: { ro: ["Calm", "Prietenos", "Primitor", "Cumpătat", "Relaxat"], en: ["Calm", "Friendly", "Welcoming", "Moderate", "Easygoing"] },
+    strengths: {
+      ro: [
+        "Știi să te bucuri de lucrurile mici și să-i faci pe alții să se simtă bine.",
+        "Ești un prieten cald, loial și primitor.",
+        "Nu te lași stresat de lucruri care nu merită."
+      ],
+      en: [
+        "You know how to enjoy small things and make others feel at ease.",
+        "You’re a warm, loyal and welcoming friend.",
+        "You don’t let things that don’t matter stress you out."
+      ]
+    },
+    watchOut: {
+      ro: [
+        "Poți evita conflictele chiar și când ar trebui să lupți pentru ceva.",
+        "Confortul te poate face să ocolești provocările.",
+        "Uneori te retragi prea mult din lume."
+      ],
+      en: [
+        "You may avoid conflict even when something is worth fighting for.",
+        "Comfort can make you dodge challenges.",
+        "Sometimes you withdraw from the world too much."
+      ]
+    },
+    relations: {
+      ro: "Prietenii sunt centrul vieții tale. Casa ta e mereu deschisă, iar cele mai frumoase amintiri le ai la o masă lungă, cu oameni dragi. Epicur spunea că, dintre toate lucrurile pe care înțelepciunea ni le dă pentru o viață fericită, cel mai mare este prietenia.",
+      en: "Friends are the centre of your life. Your door is always open, and your best memories are of long meals with people you love. Epicurus said that of all the things wisdom provides for a happy life, the greatest by far is friendship."
+    },
+    match: {
+      with: "diogenes",
+      ro: "Amândoi trăiți simplu și știți că fericirea nu stă în lux. Doar că tu preferi o grădină liniștită, iar el piața plină de lume.",
+      en: "You both live simply and know happiness isn’t found in luxury. You just prefer a quiet garden, while he prefers the crowded market."
+    },
+    clash: {
+      with: "zeno",
+      ro: "Epicurienii și stoicii au fost marii rivali ai Antichității. El vede virtutea ca singurul bine, tu vezi binele în liniște și plăcere.",
+      en: "Epicureans and Stoics were the great rivals of antiquity. He sees virtue as the only good; you find the good in calm and pleasure."
+    },
+    advice: {
+      ro: "Bucură-te de liniște, dar nu fugi de orice efort. Chiar și Epicur spunea că unele dureri merită alese, pentru că aduc o bucurie mai mare.",
+      en: "Enjoy your peace, but don’t run from every effort. Even Epicurus said some pains are worth choosing because they lead to greater joy."
+    }
+  },
+
+  zeno: {
+    traits: { ro: ["Calm", "Disciplinat", "Responsabil", "Rezistent", "Loial"], en: ["Calm", "Disciplined", "Responsible", "Resilient", "Loyal"] },
+    strengths: {
+      ro: [
+        "Rămâi lucid în crize și îi liniștești pe ceilalți.",
+        "Ai disciplină și te ții de cuvânt.",
+        "Treci peste eșecuri mai repede decât majoritatea oamenilor."
+      ],
+      en: [
+        "You stay clear-headed in a crisis and calm others down.",
+        "You’re disciplined and keep your word.",
+        "You bounce back from failure faster than most people."
+      ]
+    },
+    watchOut: {
+      ro: [
+        "Poți părea rece sau distant, chiar și când îți pasă.",
+        "Îți ascunzi emoțiile în loc să vorbești despre ele.",
+        "Poți fi prea dur cu tine însuți."
+      ],
+      en: [
+        "You can seem cold or distant, even when you care.",
+        "You hide your feelings instead of talking about them.",
+        "You can be too hard on yourself."
+      ]
+    },
+    relations: {
+      ro: "Ești stâlpul pe care se sprijină ceilalți. Nu faci promisiuni mari, dar le ții pe toate, și arăți dragostea mai mult prin fapte decât prin vorbe. Stoicii credeau că toți oamenii fac parte din aceeași mare familie, de aceea ești corect cu oricine, nu doar cu apropiații.",
+      en: "You’re the pillar others lean on. You don’t make big promises, but you keep every one, and you show love through actions more than words. The Stoics believed all people belong to one great family, which is why you’re fair to everyone, not just those close to you."
+    },
+    match: {
+      with: "socrates",
+      ro: "O carte despre el l-a făcut pe Zenon filosof. Amândoi admirați curajul de a rămâne calm chiar și în fața morții.",
+      en: "A book about him turned Zeno into a philosopher. You both admire the courage to stay calm even in the face of death."
+    },
+    clash: {
+      with: "epicurus",
+      ro: "Epicurienii și stoicii au fost marii rivali ai Antichității. Pentru tine plăcerea nu e un scop, ci cel mult un efect secundar al unei vieți corecte.",
+      en: "Epicureans and Stoics were the great rivals of antiquity. To you pleasure isn’t a goal, at most a side effect of living rightly."
+    },
+    advice: {
+      ro: "Concentrează-te pe ce depinde de tine și lasă restul. Dar nu uita că și emoțiile tale merită ascultate.",
+      en: "Focus on what’s up to you and let the rest go. But don’t forget that your own feelings deserve to be heard too."
+    }
+  }
+};
+
+
+const QUESTIONS = [
+  {
+    q: { ro: "Ai o problemă grea în viață. Ce faci?", en: "You’re facing a hard problem in life. What do you do?" },
+    a: {
+      socrates: { ro: "Îmi pun întrebări până ajung la rădăcina ei.", en: "I ask myself questions until I reach its root." },
+      plato: { ro: "Mă gândesc cum ar arăta situația ideală și pornesc de acolo.", en: "I picture the ideal outcome and work back from there." },
+      aristotle: { ro: "Analizez logic opțiunile și aleg calea de mijloc.", en: "I weigh the options logically and pick the middle way." },
+      diogenes: { ro: "Nu mă stresez. Majoritatea problemelor sunt inventate de societate.", en: "I don’t stress. Most problems are made up by society." },
+      epicurus: { ro: "Caut liniștea și mă sfătuiesc cu prietenii apropiați.", en: "I look for calm and talk it over with close friends." },
+      zeno: { ro: "Accept ce nu pot schimba și acționez asupra a ce pot.", en: "I accept what I can’t change and act on what I can." }
+    }
+  },
+  {
+    q: { ro: "Ce înseamnă fericirea pentru tine?", en: "What does happiness mean to you?" },
+    a: {
+      socrates: { ro: "Să mă cunosc cu adevărat pe mine însumi.", en: "Truly knowing myself." },
+      plato: { ro: "Să ating ceva perfect, frumos și adevărat.", en: "Reaching something perfect, beautiful and true." },
+      aristotle: { ro: "Să-mi ating potențialul și să trăiesc împlinit.", en: "Reaching my potential and living a fulfilled life." },
+      diogenes: { ro: "Să fiu liber de orice constrângere.", en: "Being free of every constraint." },
+      epicurus: { ro: "Să nu am griji, dureri sau frici.", en: "Having no worries, pain or fear." },
+      zeno: { ro: "Să trăiesc corect, orice s-ar întâmpla.", en: "Living rightly, whatever happens." }
+    }
+  },
+  {
+    q: { ro: "Câștigi un milion de lei. Ce faci cu banii?", en: "You win a million. What do you do with the money?" },
+    a: {
+      socrates: { ro: "Mă întreb mai întâi dacă banii mă fac un om mai bun.", en: "First I ask whether money makes me a better person." },
+      plato: { ro: "Îi investesc într-un proiect care schimbă societatea.", en: "I invest it in a project that changes society." },
+      aristotle: { ro: "Îi împart cu chibzuință: economii, educație și puțină plăcere.", en: "I split it wisely: savings, education and a bit of fun." },
+      diogenes: { ro: "Îi dau altora. N-am nevoie de ei.", en: "I give it away. I don’t need it." },
+      epicurus: { ro: "Îmi iau o casă liniștită, cu grădină, unde să-mi chem prietenii.", en: "I buy a quiet house with a garden for my friends." },
+      zeno: { ro: "Viața mea rămâne aceeași. Banii nu mă definesc.", en: "My life stays the same. Money doesn’t define me." }
+    }
+  },
+  {
+    q: { ro: "Cum privești moartea?", en: "How do you see death?" },
+    a: {
+      socrates: { ro: "Nu știm ce e. Poate fi chiar ceva bun.", en: "We don’t know what it is. It might even be good." },
+      plato: { ro: "Sufletul e nemuritor și se întoarce acolo de unde a venit.", en: "The soul is immortal and returns to where it came from." },
+      aristotle: { ro: "E sfârșitul firesc al unui ciclu natural.", en: "It’s the natural end of a natural cycle." },
+      diogenes: { ro: "Nu mă preocupă deloc.", en: "It doesn’t concern me at all." },
+      epicurus: { ro: "Cât timp exist eu, ea nu există, deci n-are rost să mă tem.", en: "While I exist, it doesn’t, so there’s no point fearing it." },
+      zeno: { ro: "Face parte din ordinea naturii, iar eu o accept.", en: "It’s part of the order of nature, and I accept it." }
+    }
+  },
+  {
+    q: { ro: "Ce rol ai într-un grup de prieteni?", en: "What role do you play in a group of friends?" },
+    a: {
+      socrates: { ro: "Cel care întreabă mereu „de ce?”.", en: "The one who always asks “why?”." },
+      plato: { ro: "Visătorul cu planuri mari.", en: "The dreamer with big plans." },
+      aristotle: { ro: "Organizatorul care le pune pe toate în ordine.", en: "The organiser who puts everything in order." },
+      diogenes: { ro: "Cel care spune lucrurilor pe nume.", en: "The one who says it like it is." },
+      epicurus: { ro: "Cel care face atmosfera relaxată.", en: "The one who keeps the mood relaxed." },
+      zeno: { ro: "Cel pe care se bazează toți când e greu.", en: "The one everyone relies on when things get hard." }
+    }
+  },
+  {
+    q: { ro: "Ți se cere să respecți o regulă care ți se pare absurdă.", en: "You’re told to follow a rule that seems absurd to you." },
+    a: {
+      socrates: { ro: "Întreb de ce există și discut până ne lămurim.", en: "I ask why it exists and discuss it until it’s clear." },
+      plato: { ro: "Mă gândesc cum ar arăta o regulă cu adevărat dreaptă.", en: "I think about what a truly just rule would look like." },
+      aristotle: { ro: "O respect dacă e utilă comunității, altfel propun o schimbare.", en: "I follow it if it helps the community, otherwise I propose a change." },
+      diogenes: { ro: "O ignor fără nicio remușcare.", en: "I ignore it without any regret." },
+      epicurus: { ro: "O ocolesc discret. Nu merită un conflict.", en: "I quietly work around it. It’s not worth a fight." },
+      zeno: { ro: "O respect. Supărarea nu schimbă nimic.", en: "I follow it. Getting upset changes nothing." }
+    }
+  },
+  {
+    q: { ro: "Cineva te critică dur în fața altora.", en: "Someone criticises you harshly in front of others." },
+    a: {
+      socrates: { ro: "Îl întreb ce vrea să spună exact. Poate are dreptate.", en: "I ask what exactly they mean. They might be right." },
+      plato: { ro: "Mă întreb dacă e adevăr sau doar o părere.", en: "I ask myself whether it’s truth or just opinion." },
+      aristotle: { ro: "Analizez critica și păstrez doar ce e util.", en: "I analyse the criticism and keep only what’s useful." },
+      diogenes: { ro: "Îi răspund pe loc, cu ironie.", en: "I answer on the spot, with irony." },
+      epicurus: { ro: "Plec și mă întorc la oamenii care țin la mine.", en: "I leave and go back to the people who care about me." },
+      zeno: { ro: "Rămân calm. Părerea lui nu depinde de mine.", en: "I stay calm. Their opinion isn’t up to me." }
+    }
+  },
+  {
+    q: { ro: "Ce carieră ți s-ar potrivi?", en: "Which career would suit you?" },
+    a: {
+      socrates: { ro: "Profesor sau jurnalist, ca să pun întrebări toată ziua.", en: "Teacher or journalist, asking questions all day." },
+      plato: { ro: "Arhitect sau lider cu o viziune mare.", en: "Architect or a leader with a big vision." },
+      aristotle: { ro: "Om de știință sau medic.", en: "Scientist or doctor." },
+      diogenes: { ro: "Artist liber, fără șef și fără program.", en: "Free artist, with no boss and no schedule." },
+      epicurus: { ro: "Ceva liniștit: bucătar, grădinar, scriitor.", en: "Something calm: cook, gardener, writer." },
+      zeno: { ro: "Judecător, pilot sau salvator.", en: "Judge, pilot or rescuer." }
+    }
+  },
+  {
+    q: { ro: "Ești foarte supărat. Ce faci cu emoția?", en: "You’re really upset. What do you do with the feeling?" },
+    a: {
+      socrates: { ro: "Mă întreb de unde vine de fapt supărarea.", en: "I ask myself where the anger really comes from." },
+      plato: { ro: "Las rațiunea să conducă, așa cum un vizitiu își strunește caii.", en: "I let reason take the reins, like a charioteer guiding horses." },
+      aristotle: { ro: "Supărarea e bună în măsura potrivită, față de cine trebuie.", en: "Anger is fine in the right amount, towards the right person." },
+      diogenes: { ro: "O spun pe față. Nu ascund nimic.", en: "I say it openly. I hide nothing." },
+      epicurus: { ro: "Mă retrag și mă liniștesc cu ceva plăcut.", en: "I step away and calm down with something pleasant." },
+      zeno: { ro: "Îmi amintesc că emoția vine din felul în care judec situația.", en: "I remind myself the feeling comes from how I judge the situation." }
+    }
+  },
+  {
+    q: { ro: "Ce contează cel mai mult pentru tine?", en: "What matters most to you?" },
+    a: {
+      socrates: { ro: "Adevărul, chiar dacă e incomod.", en: "The truth, even when it’s uncomfortable." },
+      plato: { ro: "Binele și frumosul.", en: "The good and the beautiful." },
+      aristotle: { ro: "Echilibrul și măsura în toate.", en: "Balance and moderation in everything." },
+      diogenes: { ro: "Libertatea.", en: "Freedom." },
+      epicurus: { ro: "Liniștea și prietenia.", en: "Peace of mind and friendship." },
+      zeno: { ro: "Datoria și caracterul.", en: "Duty and character." }
+    }
+  },
+  {
+    q: { ro: "Cum arată weekendul tău ideal?", en: "What does your ideal weekend look like?" },
+    a: {
+      socrates: { ro: "Discuții lungi în oraș, cu oricine are o părere.", en: "Long talks in town with anyone who has an opinion." },
+      plato: { ro: "Un muzeu, un concert și o carte bună.", en: "A museum, a concert and a good book." },
+      aristotle: { ro: "Un documentar, apoi îmi planific săptămâna.", en: "A documentary, then planning my week." },
+      diogenes: { ro: "Hoinăresc fără niciun plan.", en: "Wandering around with no plan at all." },
+      epicurus: { ro: "O cină lungă cu prietenii apropiați, în grădină.", en: "A long dinner in the garden with close friends." },
+      zeno: { ro: "Sport dimineața devreme, apoi puțină lectură.", en: "Early-morning exercise, then some reading." }
+    }
+  },
+  {
+    q: { ro: "Ce înseamnă să știi cu adevărat ceva?", en: "What does it mean to truly know something?" },
+    a: {
+      socrates: { ro: "Să recunoști cât de puțin știi.", en: "Admitting how little you know." },
+      plato: { ro: "Să vezi dincolo de aparențe, la esența lucrurilor.", en: "Seeing past appearances to the essence of things." },
+      aristotle: { ro: "Să observi lumea și să tragi concluzii logice.", en: "Observing the world and drawing logical conclusions." },
+      diogenes: { ro: "Să trăiești, nu să teoretizezi.", en: "Living it, not theorising about it." },
+      epicurus: { ro: "Să ai încredere în ce simți și experimentezi.", en: "Trusting what you feel and experience." },
+      zeno: { ro: "Să judeci corect tot ce ți se întâmplă.", en: "Judging everything that happens to you correctly." }
+    }
+  }
+];
+
+// Întrebare de departajare, afișată doar dacă există egalitate
+const TIEBREAKER = {
+  q: { ro: "Egalitate! Alege simbolul care ți se potrivește cel mai bine.", en: "It’s a tie! Pick the symbol that suits you best." },
+  a: {
+    socrates: { ro: "O cupă și o conversație până dimineața", en: "A cup and a conversation until dawn" },
+    plato: { ro: "Lumina de la ieșirea din peșteră", en: "The light at the mouth of the cave" },
+    aristotle: { ro: "Un sul cu notițe despre tot ce există", en: "A scroll of notes on everything that exists" },
+    diogenes: { ro: "Un felinar aprins în plină zi", en: "A lantern lit in broad daylight" },
+    epicurus: { ro: "O ramură de măslin dintr-o grădină cu prieteni", en: "An olive branch from a garden full of friends" },
+    zeno: { ro: "O coloană care rămâne în picioare orice ar fi", en: "A column that stands whatever happens" }
+  }
+};
+
+const UI = {
+  ro: {
+    pageTitle: "Ce filosof antic ești?",
+    brand: "Agora",
+    navGallery: "Filosofii",
+    title: "Ce filosof antic ești?",
+    intro: "12 întrebări despre fericire, adevăr, bani și moarte. La final afli cu care dintre cei șase gânditori ai Greciei antice semeni cel mai mult.",
+    duration: "Durează în jur de 4 minute.",
+    start: "Începe testul",
+    questionOf: (a, b) => `Întrebarea ${a} din ${b}`,
+    back: "Întrebarea anterioară",
+    youAre: "Ești",
+    keyIdeas: "Ideile principale",
+    story: "Povestea lui",
+    didYouKnow: "Știai că…",
+    scores: "Cât de mult semeni cu fiecare",
+    alsoSome: (n, p) => `Ai și ceva din ${n} (${p}%).`,
+    restart: "Refă testul",
+    share: "Distribuie rezultatul",
+    seeAll: "Vezi toți filosofii",
+    galleryTitle: "Cei șase filosofi",
+    galleryIntro: "Fiecare a răspuns altfel la aceeași întrebare: cum ar trebui să trăim?",
+    takeTest: "Fă testul",
+    copied: "Copiat. Îl poți lipi unde vrei.",
+    shareText: (n) => `Am făcut testul „Ce filosof antic ești?” și semăn cu ${n}. Tu cu cine semeni?`,
+    strengths: "Punctele tale forte",
+    watchOut: "La ce să fii atent",
+    relations: "Tu și ceilalți",
+    compat: "Cu cine te-ai potrivi",
+    getAlong: "Te-ai înțelege cu",
+    argue: "Te-ai contrazice cu",
+    advice: "Sfatul lui pentru tine"
+  },
+  en: {
+    pageTitle: "Which ancient philosopher are you?",
+    brand: "Agora",
+    navGallery: "Philosophers",
+    title: "Which ancient philosopher are you?",
+    intro: "12 questions about happiness, truth, money and death. At the end you’ll find out which of six thinkers of ancient Greece you resemble most.",
+    duration: "Takes about 4 minutes.",
+    start: "Start the quiz",
+    questionOf: (a, b) => `Question ${a} of ${b}`,
+    back: "Previous question",
+    youAre: "You are",
+    keyIdeas: "Key ideas",
+    story: "His story",
+    didYouKnow: "Did you know…",
+    scores: "How much you resemble each one",
+    alsoSome: (n, p) => `You also have a bit of ${n} (${p}%).`,
+    restart: "Retake the quiz",
+    share: "Share your result",
+    seeAll: "See all philosophers",
+    galleryTitle: "The six philosophers",
+    galleryIntro: "Each gave a different answer to the same question: how should we live?",
+    takeTest: "Take the quiz",
+    copied: "Copied. Paste it anywhere.",
+    shareText: (n) => `I took the “Which ancient philosopher are you?” quiz and I’m ${n}. Who are you?`,
+    strengths: "Your strengths",
+    watchOut: "Watch out for",
+    relations: "You and other people",
+    compat: "Who you’d click with",
+    getAlong: "You’d get along with",
+    argue: "You’d argue with",
+    advice: "His advice for you"
+  }
+};
+
+/* Limba: salvată în browser, implicit română */
+function getLang() {
+  try {
+    const saved = localStorage.getItem("lang");
+    if (saved === "ro" || saved === "en") return saved;
+  } catch (e) { /* stocarea poate fi indisponibilă */ }
+  return "ro";
+}
+function saveLang(lang) {
+  try { localStorage.setItem("lang", lang); } catch (e) { /* ignorăm */ }
+}
+
+</script>
+  <script>
+/* =========================================================
+   Logica aplicației: ecrane, punctaj, departajare, limbă.
+   ========================================================= */
+(function () {
+  "use strict";
+
+  const app = document.getElementById("app");
+  const toast = document.getElementById("toast");
+
+  const state = {
+    lang: getLang(),
+    screen: "home",      // home | quiz | tiebreak | result | gallery
+    index: 0,            // întrebarea curentă
+    answers: [],         // cheia filosofului ales la fiecare întrebare
+    orders: [],          // ordinea amestecată a răspunsurilor
+    tied: [],            // filosofii la egalitate
+    winner: null,
+    locked: false
+  };
+
+  const t = (key, ...args) => {
+    const v = UI[state.lang][key];
+    return typeof v === "function" ? v(...args) : v;
+  };
+  const L = (obj) => obj[state.lang];
+  const quote = (txt) => (state.lang === "ro" ? `„${txt}”` : `“${txt}”`);
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function scores() {
+    const s = Object.fromEntries(KEYS.map((k) => [k, 0]));
+    state.answers.forEach((k) => { if (k) s[k]++; });
+    return s;
+  }
+
+  /* ---------- Ecrane ---------- */
+
+  function viewHome() {
+    return `
+      <section class="hero">
+        <div class="meander" aria-hidden="true"></div>
+        <h1 tabindex="-1">${t("title")}</h1>
+        <p class="lead">${t("intro")}</p>
+        <button class="btn primary" data-action="start">${t("start")}</button>
+        <p class="note">${t("duration")}</p>
+        <ul class="frieze">
+          ${KEYS.map((k) => `
+            <li>
+              <span class="icon">${ICONS[k]}</span>
+              <span class="frieze-name">${L(PROFILES[k].name)}</span>
+            </li>`).join("")}
+        </ul>
+        <div class="meander" aria-hidden="true"></div>
+      </section>`;
+  }
+
+  function viewQuiz() {
+    const i = state.index;
+    const n = QUESTIONS.length;
+    const q = QUESTIONS[i];
+    return `
+      <section class="quiz">
+        <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${i + 1}" aria-label="${t("questionOf", i + 1, n)}">
+          <span style="width:${((i + 1) / n) * 100}%"></span>
+        </div>
+        <p class="counter">${t("questionOf", i + 1, n)}</p>
+        <h2 class="question" tabindex="-1">${L(q.q)}</h2>
+        <div class="answers">
+          ${state.orders[i].map((k) => `
+            <button class="answer${state.answers[i] === k ? " selected" : ""}" data-answer="${k}">${L(q.a[k])}</button>`).join("")}
+        </div>
+        ${i > 0 ? `<button class="btn link" data-action="back">${t("back")}</button>` : ""}
+      </section>`;
+  }
+
+  function viewTiebreak() {
+    return `
+      <section class="quiz">
+        <div class="progress"><span style="width:100%"></span></div>
+        <h2 class="question" tabindex="-1">${L(TIEBREAKER.q)}</h2>
+        <div class="answers">
+          ${shuffle(state.tied).map((k) => `
+            <button class="answer with-icon" data-tie="${k}">
+              <span class="icon small">${ICONS[k]}</span>
+              <span>${L(TIEBREAKER.a[k])}</span>
+            </button>`).join("")}
+        </div>
+      </section>`;
+  }
+
+  function viewResult() {
+    const w = state.winner;
+    const p = PROFILES[w];
+    const x = PERSONALITY[w];
+    const s = scores();
+    const total = QUESTIONS.length;
+    const pct = (k) => Math.round((s[k] / total) * 100);
+    const ranked = KEYS.slice().sort((a, b) => (b === w) - (a === w) || s[b] - s[a]);
+    const second = ranked.find((k) => k !== w && s[k] > 0);
+
+    return `
+      <article class="stele">
+        <div class="meander" aria-hidden="true"></div>
+        <header class="stele-head">
+          <span class="icon big">${ICONS[w]}</span>
+          <p class="you-are">${t("youAre")}</p>
+          <h1 tabindex="-1">${L(p.name)}</h1>
+          <p class="years">${L(p.years)}</p>
+          <p class="tagline">${L(p.tagline)}</p>
+          <ul class="traits">${L(x.traits).map((tr) => `<li>${tr}</li>`).join("")}</ul>
+        </header>
+
+        <p class="desc">${L(p.description)}</p>
+
+        <div class="two-col">
+          <section>
+            <h2>${t("strengths")}</h2>
+            <ul class="ideas plus">${L(x.strengths).map((s) => `<li>${s}</li>`).join("")}</ul>
+          </section>
+          <section>
+            <h2>${t("watchOut")}</h2>
+            <ul class="ideas minus">${L(x.watchOut).map((s) => `<li>${s}</li>`).join("")}</ul>
+          </section>
+        </div>
+
+        <h2>${t("relations")}</h2>
+        <p>${L(x.relations)}</p>
+
+        <h2>${t("compat")}</h2>
+        <div class="compat">
+          ${[["getAlong", x.match], ["argue", x.clash]].map(([label, c]) => `
+            <div class="compat-card">
+              <span class="icon small">${ICONS[c.with]}</span>
+              <div>
+                <p class="compat-label">${t(label)}</p>
+                <p class="compat-name">${L(PROFILES[c.with].name)}</p>
+                <p class="compat-why">${c[state.lang]}</p>
+              </div>
+            </div>`).join("")}
+        </div>
+
+        <aside class="advice">
+          <h2>${t("advice")}</h2>
+          <p>${L(x.advice)}</p>
+        </aside>
+
+        <blockquote>
+          <p>${quote(L(p.quote))}</p>
+          <cite>${L(p.name)}</cite>
+        </blockquote>
+
+        <h2>${t("story")}</h2>
+        <div class="story">${L(p.bio).map((x) => `<p>${x}</p>`).join("")}</div>
+
+        <h2>${t("keyIdeas")}</h2>
+        <ul class="ideas">${L(p.ideas).map((x) => `<li>${x}</li>`).join("")}</ul>
+
+        <h2>${t("didYouKnow")}</h2>
+        <ul class="facts">${L(p.facts).map((x) => `<li>${x}</li>`).join("")}</ul>
+
+        <h2>${t("scores")}</h2>
+        <ul class="scores">
+          ${ranked.map((k) => `
+            <li class="${k === w ? "winner" : ""}">
+              <span class="score-name">${L(PROFILES[k].name)}</span>
+              <span class="bar"><span style="width:${pct(k)}%"></span></span>
+              <span class="score-pct">${pct(k)}%</span>
+            </li>`).join("")}
+        </ul>
+        ${second ? `<p class="also">${t("alsoSome", L(PROFILES[second].name), pct(second))}</p>` : ""}
+
+        <div class="actions">
+          <button class="btn primary" data-action="share">${t("share")}</button>
+          <button class="btn" data-action="start">${t("restart")}</button>
+          <button class="btn link" data-action="gallery">${t("seeAll")}</button>
+        </div>
+        <div class="meander" aria-hidden="true"></div>
+      </article>`;
+  }
+
+  function viewGallery() {
+    return `
+      <section class="gallery-page">
+        <h1 tabindex="-1">${t("galleryTitle")}</h1>
+        <p class="lead">${t("galleryIntro")}</p>
+        <div class="gallery">
+          ${KEYS.map((k) => {
+            const p = PROFILES[k];
+            return `
+              <article class="figure">
+                <span class="icon">${ICONS[k]}</span>
+                <h2>${L(p.name)}</h2>
+                <p class="years">${L(p.years)}</p>
+                <p class="tagline">${L(p.tagline)}</p>
+                <p class="figure-quote">${quote(L(p.quote))}</p>
+                <p class="figure-bio">${L(p.bio)[0]}</p>
+                <ul class="ideas">${L(p.ideas).map((x) => `<li>${x}</li>`).join("")}</ul>
+              </article>`;
+          }).join("")}
+        </div>
+        <div class="actions center">
+          <button class="btn primary" data-action="start">${t("takeTest")}</button>
+        </div>
+      </section>`;
+  }
+
+  /* ---------- Randare ---------- */
+
+  function renderChrome() {
+    document.documentElement.lang = state.lang;
+    document.title = t("pageTitle");
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    document.querySelectorAll("[data-lang]").forEach((b) => {
+      b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
+    });
+  }
+
+  function render(focus = true) {
+    renderChrome();
+    const views = { home: viewHome, quiz: viewQuiz, tiebreak: viewTiebreak, result: viewResult, gallery: viewGallery };
+    app.innerHTML = views[state.screen]();
+    if (focus) {
+      window.scrollTo(0, 0);
+      const h = app.querySelector("[tabindex='-1']");
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
+  /* ---------- Acțiuni ---------- */
+
+  function start() {
+    state.index = 0;
+    state.answers = [];
+    state.orders = QUESTIONS.map(() => shuffle(KEYS));
+    state.winner = null;
+    state.tied = [];
+    state.screen = "quiz";
+    render();
+  }
+
+  function finish() {
+    const s = scores();
+    const max = Math.max(...Object.values(s));
+    state.tied = KEYS.filter((k) => s[k] === max);
+    if (state.tied.length > 1) {
+      state.screen = "tiebreak";
+    } else {
+      state.winner = state.tied[0];
+      state.screen = "result";
+    }
+    render();
+  }
+
+  function answer(btn) {
+    if (state.locked) return;
+    state.locked = true;
+    state.answers[state.index] = btn.dataset.answer;
+    app.querySelectorAll(".answer").forEach((b) => b.classList.toggle("selected", b === btn));
+    setTimeout(() => {
+      state.locked = false;
+      if (state.index < QUESTIONS.length - 1) {
+        state.index++;
+        render();
+      } else {
+        finish();
+      }
+    }, 260);
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  async function share() {
+    // Deschis din fișier local: linkul n-ar merge la alții, așa că trimitem doar textul
+    const url = location.protocol === "file:" ? "" : location.href.split("#")[0].split("?")[0];
+    const text = t("shareText", L(PROFILES[state.winner].name));
+    const full = url ? `${text} ${url}` : text;
+    if (navigator.share) {
+      try { await navigator.share(url ? { title: t("pageTitle"), text, url } : { title: t("pageTitle"), text }); } catch (e) { /* anulat */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(full);
+      showToast(t("copied"));
+    } catch (e) {
+      prompt("", full);
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-action], [data-answer], [data-tie], [data-lang]");
+    if (!el) return;
+
+    if (el.dataset.lang) {
+      state.lang = el.dataset.lang;
+      saveLang(state.lang);
+      render(false);
+      return;
+    }
+    if (el.dataset.answer) { answer(el); return; }
+    if (el.dataset.tie) {
+      state.winner = el.dataset.tie;
+      state.screen = "result";
+      render();
+      return;
+    }
+
+    e.preventDefault();
+    switch (el.dataset.action) {
+      case "home": state.screen = "home"; render(); break;
+      case "start": start(); break;
+      case "back":
+        if (state.index > 0) { state.index--; render(); }
+        break;
+      case "gallery": state.screen = "gallery"; render(); break;
+      case "share": share(); break;
+    }
+  });
+
+  render(false);
+})();
+
+</script>
 </body>
 </html>
